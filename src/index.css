@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2? family= BenchNine:peso@300 &family= Rozha+One & display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=BenchNine:wght@300&family=Rozha+One&display=swap');
+
 
 body {
   margin: 0;
@@ -7,7 +9,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ddd;
 }
 
 code {
