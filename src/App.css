@@ -1,25 +1,28 @@
 :root {
-  --main-fs-color: #eeeeee;
-  --comp-ss-color:#9fe2f1;
-  --comp-ts-color: #99ffaa;
-  --main-sc-color: #f8b3c9;
+  --main-fs-color: #eaeaea;
+  --comp-ss-color:#da6086;
+  --comp-ts-color: #208831;
+  --main-sc-color: #fab1c8;
   --text-fc-color:#555555;
   --text-store-color: #222222;
+  --gallery-fs-color:#cdcdcd;
 }
-
 .App {
  display: flex;
  flex-direction: column;
 }
+
+/* Header CSS Style */
 
 .header-container {
   position:fixed;
   left:0;
   top:0;
   display: flex;
+  flex-wrap: wrap;
   background-color: var(--main-fs-color);
   width: 100vw;
-  justify-content:space-evenly;
+  justify-content:space-between;
   align-items: center;
   z-index: 100;
 }
@@ -29,7 +32,7 @@
   font-size: 4em;
   margin: 0;
   color: var(--text-store-color);
-  
+  padding: 0 1em;
 }
 .store-name-i{
   font-size:medium;
@@ -39,7 +42,8 @@
 .nav-header{
   display: flex;
   justify-content: space-evenly;
- 
+  flex-wrap: wrap;
+  padding: 0 2em;
 }
 
 .a-nav {
@@ -56,7 +60,12 @@
 
 .icon-header {
   color: var(--text-fc-color);
+  display: none;
+  
 }
+
+/* Main CSS Style */
+
 
 .main-container {
   position: relative;
@@ -64,8 +73,6 @@
   flex-direction: column;
   width: auto;
   height: auto;
-  background-color: #000;
-  color: #fff;
 }
 
 .discoint-article{
@@ -77,31 +84,182 @@
   background-color: var(--main-sc-color);
   justify-content: center;
   padding: 1em;
-  color:#000;
+  color:var(--text-store-color);
+  
 }
 .discoint-article span  {
+  font-size: 0.9em;
   font-weight: 500;
   letter-spacing: 0.15em;
+}
+
+.title-section{
+  align-self: center;
+  font-size: 1.7em;
+}
+
+.message-section {
+  text-align: center;
+  align-self: center;
+  line-height: 2em;
+  width: 80%;
 }
 
 .gallery-grid {
   display: grid;
   width: 90vw;
   height: auto;
-  grid-template-columns: repeat(autofit, 300px);
+  grid-template-columns: repeat(auto-fit, 250px);
+  grid-template-rows: auto;
+  grid-gap: 3em;
   justify-content: space-evenly;
   align-self: center;
-  justify-content: center;
-  background-color: #444;
+  background-color: var(--gallery-fs-color);
+  margin: 1em 0;
+  padding: 2em 0;
+  border-radius: 2%;
 }
 
 .photo-gallery {
-  width: 300px;
-  height: 450px;
+  max-width: 250px;
+  height: 350px;
+  margin: 0;
+}
+.photo-gallery:hover{
+  background-color: #bbbbbb;
+  filter:brightness(0.8);
 }
 
 .img-photo{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; 
 }
+
+
+.img-photo:hover{
+  object-fit: contain;
+  filter:brightness(0.8);
+}
+
+.info-photo{
+  display: flex;
+  flex-direction: column;
+  height:auto;
+  margin: 0;
+  line-height: 0;
+  width: 100%;
+  background-color: var(--main-fs-color);
+  text-align: center;
+}
+
+
+.info-photo h4 {
+  color: var(--comp-ss-color);
+  line-height: 0;
+}
+
+.info-photo h4:hover {
+  text-decoration: underline;
+}
+.info-photo p {
+  color: var(--comp-ts-color);
+}
+.info-photo p:hover {
+  text-decoration: underline;
+}
+
+/* Media Query CSS Max-Width 470px */
+@media screen and (max-width: 470px){
+
+  /* Header media query */
+  .header-container{
+    justify-content: space-between;
+  }
+  .store-name {
+    padding-left: 0.5em;
+  }
+
+  .nav-header{
+    width: 100%;
+    order: 2;
+    justify-content: center;
+    display: none;
+  }
+  .a-nav{
+    width: 100%;
+   text-align: center;
+  }
+  .icon-header{
+    margin-right: 3em;
+    display:inline-block;
+  }
+  /* Main Media Query */
+
+  .discoint-article{
+    padding-top: 3em;
+    font-size: smaller;
+    text-align: center;
+    font-weight: 900;
+  }
+}
+/* Media Query CSS Max-Width 850px */
+@media screen and (max-width: 850px){
+
+  /* Header media query */
+  .header-container{
+    justify-content: space-between;
+  }
+  .store-name {
+    padding-left: 0.5em;
+  }
+
+  .nav-header{
+    display: none;
+  }
+
+  .icon-header{
+    display: inline-block;
+    padding-right: 3em;
+  }
+
+  /* Main Media Query */
+
+  .discoint-article{
+   height: 6.5em;
+    font-size: smaller;
+    text-align: center;
+    font-weight: 900;
+  }
+}
+
+/* Media Query CSS Max-Width 1140px */
+@media screen and (max-width: 1140px){
+
+  /* Header media query */
+  .header-container{
+    justify-content: space-between;
+  }
+  .store-name {
+    padding-left: 0.5em;
+  }
+
+  .a-nav {
+    padding: 1em;
+    font-size: 0.9em;
+    font-weight: 620;
+  }
+  .a-nav:hover{
+    background-color: var(--comp-ss-color);
+    color: var(--text-store-color);
+  }
+  /* Main Media Query */
+
+  .discoint-article{
+   height: 6.5em;
+    font-size: smaller;
+    text-align: center;
+    font-weight: 900;
+  }
+}
+
