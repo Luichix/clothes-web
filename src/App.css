@@ -184,6 +184,24 @@
   font-size: 2em;
 }
 
+.icon-footer {
+  display: grid;
+  grid-template-columns: repeat(3,40px);
+  justify-items: center;
+  font-size: medium;
+  color: var(--text-gray-color);
+  padding-bottom: 1em;
+}
+
+.line-footer {
+  color: var(--text-gray-color);
+  width: 40%;
+}
+
+.credits {
+  padding-bottom: 2em;
+}
+
 .credits p {
   line-height: 0.7;
 }
@@ -215,7 +233,7 @@
    text-align: center;
   }
   .icon-header{
-    margin-right: 3em;
+    margin-right: 1em;
     display:inline-block;
   }
   /* Main Media Query */
