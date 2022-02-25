@@ -1,26 +1,8 @@
+import React,{useState,useEffect} from 'react'
 import Note from './components/Note'
+import noteService from './services/note'
 
-const notes = [
-    {
-      id: 1,
-      content: 'HTML is easy',
-      date: '2019-05-30T17:30:31.098Z',
-      important: true,
-    },
-    {
-      id: 2,
-      content: 'Browser can execute only JavaScript',
-      date: '2019-05-30T18:39:34.091Z',
-      important: false,
-    },
-    {
-      id: 3,
-      content: 'GET and POST are the most important methods of HTTP protocol',
-      date: '2019-05-30T19:20:14.298Z',
-      important: true,
-    },
-  ]
-  
+
 const Item = (props) => {
     return(
         (
@@ -38,6 +20,74 @@ const Item = (props) => {
 }
 
 function Main () {
+    const [notes, setNotes] = useState([])
+    const [newNote, setNewNote] = useState('')
+    const [showAll, setShowAll] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('some error happened...')
+
+    useEffect(()=> {      
+        noteService
+            .getAll()
+            .then( initialNotes =>{
+                setNotes(initialNotes)
+        })
+    },[])
+
+    const notesToShow = showAll
+        ? notes
+        : notes.filter(note => note.important) 
+
+    const addNote = (event) => {
+        event.preventDefault()
+        const noteObject = {
+            content: newNote,
+            date: new Date().toString(),
+            important: Math.random() <0.5,
+        }
+
+        noteService
+            .create(noteObject)
+            .then(returnedNote => {
+                setNotes(notes.concat(returnedNote))
+                setNewNote('')
+            })
+
+    }
+
+    const toggleImportanceOf = id => {
+        const note = notes.find(n => n.id === id)
+        const changedNote = {...note, important: !note.important}
+        
+        noteService
+            .update(id,changedNote)
+            .then(returnedNote => {
+            setNotes(notes.map(note => note.id !== id ? note: returnedNote))
+        })  
+            .catch(error => {
+                setErrorMessage(`Note '${note.content}' was already removed from server`)
+                setTimeout(()=>{
+                    setErrorMessage(null)
+                },5000)
+                setNotes(notes.filter(n => n.id !== id ))
+            }) 
+
+    }
+
+    const Notification = ({ message }) => {
+        if (message === null){
+            return null
+        }
+        return (
+            <div className='error'>
+                {message}               
+            </div>
+        )
+    }
+
+    const handleNoteChange = (event) =>{
+        setNewNote(event.target.value)
+    }
+
     const item = "CAMISA CASUAL CHANEL"
     const precio = "$10"
     const urlImg = "https://www.selectfashion.co.uk/media/catalog/product/s/0/s055_1601_004_macchiato-8.jpg?optimize=low&amp;bg-color=255,255,255&amp;fit=bounds&amp;height=420&amp;width=280&amp;canvas=280:420&amp;dpr=2"
@@ -48,14 +98,27 @@ function Main () {
             <p className="message-section">Escuchamos que estabas buscando la venta oficial de Select... Bueno, has venido al lugar correcto, boo. Ingrese directamente a nuestro lugar favorito en el sitio: nuestra sección de ventas de siguiente nivel donde ... </p>
             <div>
                 <h3>Notes</h3>
+                <Notification message={errorMessage}  />
+                <div>
+                    <button onClick={()=> setShowAll(!showAll)}>
+                        show {showAll ? 'important' : 'all'}
+                    </button>
+                </div>
                 <ul>
-                    {notes.map(note => (
-                        <Note key={note.id} note={note}></Note>
+                    {notesToShow.map((note) => (
+                        <Note 
+                            key={note.id} 
+                            note={note} 
+                            toggleImportance={()=>toggleImportanceOf(note.id)} 
+                        />
                     ))}
                 </ul>
+                <form onSubmit={addNote}>
+                    <input value={newNote} onChange={handleNoteChange}></input>
+                    <button type="submit">save</button>
+                </form>
             </div>
             <section className="gallery-grid">
-
                 <Item item={item} precio={precio} urlImg={urlImg} ></Item>
                 <Item item={item} precio={precio} urlImg={urlImg} ></Item>
                 <Item item={item} precio={precio} urlImg={urlImg} ></Item>
