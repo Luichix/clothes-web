@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login/>} />
           <Route path='/' element={<Main/>} exact/>
-          <Route path='/api/image' element={<Upload/>} />
+          <Route path='/image' element={<Upload/>} />
         </Routes>
       </div>
     </Router>
