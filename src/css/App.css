@@ -28,15 +28,12 @@
 }
 
 .store-name {
-  font-family: 'Rozha One','BenchNine', sans-serif;
-  font-size: 3em;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.2em;
   margin: 0;
   color: var(--text-store-color);
   padding: 0 1em;
-  font-weight: 300;
-}
-.store-name-i{
-  font-size:medium;
+  font-weight: 700;
 }
 
 .nav-header{
