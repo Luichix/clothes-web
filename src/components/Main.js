@@ -26,7 +26,7 @@ function Main () {
         <section className="gallery-grid">
 
           { store.map((shop) => (
-            <Item key={shop.id} item={shop.item} precio={shop.price.toFixed(2)} urlImg={shop.url} />
+            <Item key={shop.id} item={shop.item} precio={shop.price.toFixed(2)} urlImg={shop.imageUrl} />
           )) }
         </section>
       </main>

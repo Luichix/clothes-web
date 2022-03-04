@@ -12,14 +12,6 @@ const upload = async newObject => {
   return response.data
 }
 
-// const upload = async newObject => {
-//   const config = {
-//     headers: { 'Content-Type': 'multipart/form-data' }
-//   }
-//   const response = await axios.post(baseUrl,newObject, config)
-//   return response.data
-// }
-
 const imageService = {
   getAll,
   upload
