@@ -24,8 +24,8 @@ function Header (){
         <Link to='/' className='a-nav'>DESCUENTO</Link>
         <Link to='/' className='a-nav'>ROPA</Link>
         <Link to='/' className='a-nav'>ZAPATOS</Link>
-        <Link to='/' className='a-nav'>ACCESORIOS</Link>
-        <Link to='/' className='a-nav'>BELLEZA</Link>
+        <Link to='/Login' className='a-nav'>ACCESORIOS</Link>
+        <Link to='/image' className='a-nav'>BELLEZA</Link>
       </nav>
       <a id="button-bar" onClick={buttonNavBar} className='icon-header'  ><FontAwesomeIcon icon={faBars} size="lg"/></a>
     </header>)
