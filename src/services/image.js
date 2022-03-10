@@ -1,20 +1,28 @@
 import axios from 'axios'
 const baseUrl = '/api/image'
 
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
+
 const getAll = () => {
   const request = axios.get(baseUrl)
-  console.log(request)
   return request.then(response => response.data)
 }
 const upload = async newObject => {
-  const response = await axios.post(baseUrl,newObject)
-  console.log('Enviada')
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.post(baseUrl,newObject, config)
   return response.data
 }
 
 const imageService = {
   getAll,
-  upload
+  upload,
+  setToken
 }
 
 export default imageService

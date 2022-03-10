@@ -1,34 +1,23 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from 'react-router-dom'
+import Sidenav from '../components/Sidenav'
 
-function Header (){
-  const [button, setbutton] = useState('')
+function Header ({ handleAuth, auth }){
+  let refNav = useRef()
 
-  const buttonNavBar = () => {
-    if(button === 'none'){
-      setbutton('')
-      document.getElementById('navBar').style.display='flex'
-    } else {
-      setbutton('none')
-      document.getElementById('navBar').style.display='none'
-    }
+  const openNav = () => {
+    refNav.current.style.width='250px'
   }
 
   return (
-    <header className="header-container">
-      <h1 className='store-name'>Elina closet</h1>
-      <nav className="nav-header" id="navBar">
-        <Link to='/' className="a-nav">NUEVO</Link>
-        <Link to='/' className='a-nav'>DESCUENTO</Link>
-        <Link to='/' className='a-nav'>ROPA</Link>
-        <Link to='/' className='a-nav'>ZAPATOS</Link>
-        <Link to='/Login' className='a-nav'>ACCESORIOS</Link>
-        <Link to='/image' className='a-nav'>BELLEZA</Link>
-      </nav>
-      <a id="button-bar" onClick={buttonNavBar} className='icon-header'  ><FontAwesomeIcon icon={faBars} size="lg"/></a>
-    </header>)
+    <>
+      <header className="header-container">
+        <a id="button-bar" onClick={openNav} className='icon-header'><FontAwesomeIcon icon={faBars} size="lg"/></a>
+        <h1 className='store-name'>ELINA CLOSET</h1>
+      </header>
+      <Sidenav refNav={refNav} handleAuth={handleAuth} auth={auth} />
+    </>)
 }
 
 export default Header

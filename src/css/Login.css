@@ -1,6 +1,10 @@
 .login {
-    background-color: white;
+    background-color: #30132a;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,8 +25,11 @@
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid rgb(43, 16, 38);
     padding: 20px;
+    margin: auto;
+    background-color: #fff;
+    color: #491545;
 }
 
 .login_container > h1 {
@@ -47,21 +54,16 @@
 }
 
 .login_signInButton {
-    background: #f0c14b;
+    background: #520c46;
     border-radius: 2px;
     width: 100%;
-    height: 30px;
     border: 1px solid;
     margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
+    border-color: #5e1e58 #531b53 #491545;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 0.5em;
 }
 
 
-.login_registerButton {
-    border-radius: 2px;
-    width: 100%;
-    height: 30px;
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: darkgray;
-}
+

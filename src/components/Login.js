@@ -1,36 +1,74 @@
 import '../css/Login.css'
-// import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import loginService from '../services/login'
+import Alert from './Alert'
+import imageService from '../services/image'
 
-function Login (props){
+
+
+function Login ({ handleAuth }){
+  let navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedAppUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      imageService.setToken(user.token)
+    }
+  }, [])
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username, password
+      })
+
+      window.localStorage.setItem(
+        'loggedAppUser', JSON.stringify(user)
+      )
+      imageService.setToken(user.token)
+
+      setUsername('')
+      setPassword('')
+      navigate('/image')
+      handleAuth()
+    } catch(exception){
+      console.error('AHHHHHHHHHHHHHHHHHHH!!!')
+      setErrMsg('Credenciales Incorrectas!')
+      setTimeout(() => {
+        setErrMsg(null)
+      }, 5000)
+    }
+  }
+
 
   return(
-    <div className='login'>
-      <div className='login_container'>
-        <h1>Sign-in</h1>
-        <form onSubmit={props.handleLogin}>
-          <h5>username</h5>
-          <input type='text' value={props.username} name='Username'
-            onChange={props.targetUsername} />
+    <>
+      <Alert msg={errMsg} type="danger" />
+      <div className='login'>
+        <div className='login_container'>
+          <h1>Ingreso</h1>
+          <form onSubmit={handleLogin}>
+            <h5>Usuario</h5>
+            <input type='text' value={username} name='Username'
+              onChange={({ target }) => setUsername(target.value)} autoComplete="off" />
 
-          <h5>Password</h5>
-          <input type='password' value={props.password} name='Password'
-            onChange={props.targetPassword} />
+            <h5>Contraseña</h5>
+            <input type='password' value={password} name='Password'
+              onChange={({ target }) => setPassword(target.value)} />
 
-          <button type='submit' className='login_signInButton' >login</button>
-        </form>
+            <button type='submit' className='login_signInButton' >Login</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
-
-// Login.propTypes = {
-//   handleLogin: PropTypes.func.isRequired,
-//   username: PropTypes.string.isRequired,
-//   targetUsername: PropTypes.func.isRequired,
-//   password: PropTypes.string.isRequired,
-//   targetPassword: PropTypes.func.isRequired
-// }
 
 
 export default Login

@@ -69,43 +69,47 @@ function Upload () {
     setSuccessMsg('Image uploaded successfully')
   }
 
+
+
   return (
-    <div className='uploadContainer'>
-      <h2>Upload Image</h2>
-      <Alert msg={errMsg} type="danger" />
-      <Alert msg={successMsg} type="success" />
-      <form onSubmit={handleSubmitFile} className="uploadForm" autoComplete='off'>
-        <input
-          id="fileInput"
-          type="file"
-          name="image"
-          className='inputImage'
-          onChange={handleFileInputChange}
-          value={fileInputState}
-          required
-        />
-        <input type="text" value={item} name='item' className='inputUpload' placeholder='Nombre del item' required
-          onChange={({ target }) => setItem(target.value)}/>
-        <input type="text" value={description} name='descripcion' className='inputUpload' placeholder='Descripción' required
-          onChange={({ target }) => setDescription(target.value)}/>
-        <input type="text" value={category} name='category' className='inputUpload' placeholder='Categoria' required
-          onChange={({ target }) => setCategory(target.value)}/>
-        <input type="number" value={stock} name='stock' className='inputUpload' placeholder='Stock' required
-          onChange={({ target }) => setStock(target.value)}/>
-        <input type="number" value={price} name='price' className='inputUpload' placeholder='Precio' required
-          onChange={({ target }) => setPrice(target.value)}/>
-        <input type="text" value={state} name='state' className='inputUpload' placeholder='Estado' required
-          onChange={({ target }) => setState(target.value)}/>
-        <button type='submit' className='buttonUpload'>Upload</button>
-      </form>
-      {previewSource && (
-        <img
-          src={previewSource}
-          alt="chosen"
-          style={{ height: '300px', width: '300px' }}
-        />
-      )}
-    </div>
+    <>
+      <div className='uploadContainer'>
+        <h2>Upload Image</h2>
+        <Alert msg={errMsg} type="danger" />
+        <Alert msg={successMsg} type="success" />
+        <form onSubmit={handleSubmitFile} className="uploadForm" autoComplete='off'>
+          <input
+            id="fileInput"
+            type="file"
+            name="image"
+            className='inputImage'
+            onChange={handleFileInputChange}
+            value={fileInputState}
+            required
+          />
+          <input type="text" value={item} name='item' className='inputUpload' placeholder='Nombre del item' required
+            onChange={({ target }) => setItem(target.value)}/>
+          <input type="text" value={description} name='descripcion' className='inputUpload' placeholder='Descripción' required
+            onChange={({ target }) => setDescription(target.value)}/>
+          <input type="text" value={category} name='category' className='inputUpload' placeholder='Categoria' required
+            onChange={({ target }) => setCategory(target.value)}/>
+          <input type="number" value={stock} name='stock' className='inputUpload' placeholder='Stock' required
+            onChange={({ target }) => setStock(target.value)}/>
+          <input type="number" value={price} name='price' className='inputUpload' placeholder='Precio' required
+            onChange={({ target }) => setPrice(target.value)}/>
+          <input type="text" value={state} name='state' className='inputUpload' placeholder='Estado' required
+            onChange={({ target }) => setState(target.value)}/>
+          <button type='submit' className='buttonUpload'>Upload</button>
+        </form>
+        {previewSource && (
+          <img
+            src={previewSource}
+            alt="chosen"
+            style={{ height: '300px', width: '300px' }}
+          />
+        )}
+      </div>
+    </>
   )
 }
 
