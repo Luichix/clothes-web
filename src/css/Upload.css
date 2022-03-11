@@ -1,26 +1,27 @@
 :root{
-  --alert-success-bg-color: #d4edda;
-  --alert-success-text-color: #155724;
-  --alert-danger-bg-color: #f5c6cb;
-  --alert-danger-text-color: #721c24;
+  --alert-success-bg-color: #07ad2e;
+  --alert-success-text-color: #0d4b1b;
+  --alert-danger-bg-color: #dd2639;
+  --alert-danger-text-color: #4e0a11;
 }
 
 .uploadContainer{
-  padding-top: 60px;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
 
+  width: 100vw;
+  min-height: 100vh;
+  background-color: rgb(151, 185, 204);
+  display: flex;
+  flex-direction: column;
 }
 
 .uploadContainer h2 {
-  color: #48b;
+  color: rgb(7, 52, 87);
   text-align: center;
   font-size: 2em;
 }
 
 .uploadForm {
-  color: #ddd;
+  color: rgb(46, 41, 41);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,4 +76,12 @@
 .alert-danger {
   background-color: var(--alert-danger-bg-color);
   color: var(--alert-danger-text-color);
+}
+
+.uploadImage{
+  margin: 20px;
+  align-self: center;
+  border: #257 4px solid;
+  max-width: 300px;
+  height: auto;
 }

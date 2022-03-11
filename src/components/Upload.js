@@ -102,7 +102,7 @@ function Upload () {
           <button type='submit' className='buttonUpload'>Upload</button>
         </form>
         {previewSource && (
-          <img
+          <img className='uploadImage'
             src={previewSource}
             alt="chosen"
             style={{ height: '300px', width: '300px' }}

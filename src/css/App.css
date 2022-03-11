@@ -3,7 +3,7 @@
   --header-color: #fcf9f9;
   --discount-color: #ee92da;
   --footer-color: #fcf9f9;
-  --sidenav-color: #f7d4ef;
+  --sidenav-color: #eee7e7;
   
   /* Color Text */
   --header-color-text: #491545;
@@ -20,6 +20,26 @@
  flex-direction: column;
 }
 
+.shadow {
+  display: flex; 
+}
+
+@keyframes example {
+  from {background-color: transparent;}
+  to {background-color: #0009;}
+}
+
+.shadow::before{
+content: '';
+width:100%;
+height: 100%;
+background-color: #0009;
+position: fixed;
+z-index: 1009;
+animation-name: example;
+animation-duration: 0.5s;
+}
+
 .header-container {
   position:sticky;
   left:0;
@@ -33,11 +53,11 @@
  }
 
 .store-name {
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2.2em;
   color: var(--header-color-text);
   padding: 0 1em;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .icon-header {
@@ -48,31 +68,39 @@
   color: var(--header-color-text);
  
 }
+.container-sidenav{
+  position: absolute;
+  background-color: #491545;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+}
 
 .sidenav {
   height: 100%;
-  width: 0;
+  width: 0px;
   position: fixed; 
-  z-index: 1000;
+  z-index: 3000;
   top: 0; 
   left: 0;
   background-color: var(--sidenav-color);
   overflow-x: hidden;
-  padding-top: 60px; 
+  padding-top: 25px; 
   transition: 0.5s; 
+  box-shadow: 5px 5px 5px #946a92;
 }
 
 .sidenav .item-sidenav {
- 
   text-decoration: none;
-  font-size: 25px;
   color: var(--sidenav-color-text);
   display: flex;
-  justify-content:space-around;
+  justify-content:space-between;
   align-items:center;
   transition: 0.3s;
-  font-weight: 100;
-  font-size: 1.3em;
+  font-size: 1em;
+  width: 70%;
+  padding: 0 1.5em;
+ 
 }
 
 .sidenav .item-sidenav:hover {
@@ -82,7 +110,7 @@
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 20px;
   font-size: 36px;
   margin-left: 50px;
   border: none;
@@ -90,8 +118,9 @@
 }
 
 .linea-sidenav{
-  width: 90%;
-  border: 1px solid var(--sidenav-color-text);
+  height: 2px;
+  border-width: 0;
+  background-color: #946a92;
 }
 
 .main-container {

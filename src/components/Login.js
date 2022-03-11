@@ -36,8 +36,8 @@ function Login (){
 
       setUsername('')
       setPassword('')
-      navigate('/dashboard')
       handleAuth()
+      navigate('/dashboard')
     } catch(exception){
       console.error('AHHHHHHHHHHHHHHHHHHH!!!')
       setErrMsg('Credenciales Incorrectas!')
