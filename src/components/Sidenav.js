@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignIn, faSignOut, faStore } from '@fortawesome/free-solid-svg-icons'
+import { faSignIn, faSignOut, faStore, faUpload } from '@fortawesome/free-solid-svg-icons'
+import UserContext from '../context/AuthContext'
 
 
-function Sidenav ({ refNav, handleAuth, auth }) {
-
+function Sidenav ({ refNav }) {
+  const { auth, handleAuth } = useContext(UserContext)
 
   const handleNav = () => {
     refNav.current.style.width = '0'
@@ -22,6 +23,14 @@ function Sidenav ({ refNav, handleAuth, auth }) {
       </Link>
       <hr className='linea-sidenav'></hr>
 
+      {
+        auth &&
+       <Link to='/dashboard' className='item-sidenav'>
+         <h4>Upload</h4>
+         <FontAwesomeIcon icon={faUpload} />
+       </Link>
+
+      }
 
       <Link to='/login' className='item-sidenav' onClick={handleAuth}>
         {auth ?

@@ -1,17 +1,18 @@
 import '../css/Login.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/login'
 import Alert from './Alert'
 import imageService from '../services/image'
+import UserContext from '../context/AuthContext'
 
 
-
-function Login ({ handleAuth }){
+function Login (){
   let navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errMsg, setErrMsg] = useState('')
+  const { handleAuth } = useContext(UserContext)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedAppUser')
@@ -35,7 +36,7 @@ function Login ({ handleAuth }){
 
       setUsername('')
       setPassword('')
-      navigate('/image')
+      navigate('/dashboard')
       handleAuth()
     } catch(exception){
       console.error('AHHHHHHHHHHHHHHHHHHH!!!')

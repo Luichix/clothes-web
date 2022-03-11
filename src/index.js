@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import './css/index.css'
 import './css/App.css'
+import { AuthProvider } from './context/AuthContext'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
