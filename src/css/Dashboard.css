@@ -1,17 +1,21 @@
 .dashboard {
-  padding: 20px;
+  margin: 20px;
+  overflow-x: auto;
 }
 
 .table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  position: relative;
+
 }
 
 td, th {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
+ 
 }
 
 .table__fila:nth-child(even) {
@@ -28,6 +32,8 @@ td, th {
   margin: 0 2px;
   transition-duration: 0.4s;
   cursor: pointer;
+  min-width: 70px;
+  border-radius: 5px;
 }
 
 .button__red {

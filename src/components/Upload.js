@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import imageService from '../services/image'
-import '../css/Upload.css'
 import Alert from './Alert'
 
 
@@ -19,9 +18,14 @@ function Upload () {
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0]
-    previewFile(file)
-    setSelectedFile(file)
-    setFileInputState(event.target.value)
+    if(!file) {
+      setFileInputState('')
+      setSelectedFile('')
+      setpreviewSource('')
+    } else {
+      previewFile(file)
+      setSelectedFile(file)
+      setFileInputState(event.target.value)}
   }
 
   const previewFile= (file) => {
@@ -69,8 +73,6 @@ function Upload () {
     setSuccessMsg('Image uploaded successfully')
   }
 
-
-
   return (
     <>
       <div className='uploadContainer'>
@@ -99,7 +101,7 @@ function Upload () {
             onChange={({ target }) => setPrice(target.value)}/>
           <input type="text" value={state} name='state' className='inputUpload' placeholder='Estado' required
             onChange={({ target }) => setState(target.value)}/>
-          <button type='submit' className='buttonUpload'>Upload</button>
+          <button type='submit' className='buttonUpload'>Cargar</button>
         </form>
         {previewSource && (
           <img className='uploadImage'

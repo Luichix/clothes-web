@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import '../css/Modal.css'
 
 function Modal ({ children }) {
   let refModal = useRef()
