@@ -4,6 +4,7 @@ import TablaItem from './TablaItem'
 import '../css/Dashboard.css'
 import Modal from './Modal'
 import Alert from './Alert'
+import Paginate from './Paginate'
 
 const initialForm = {
   item: '',
@@ -16,10 +17,13 @@ const initialForm = {
 
 const Dashboard = () => {
   const [data, setData] = useState([])
+  const [dataFromPaginate, setDataFromPaginate] = useState(null)
   const [errMsg, setErrMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
   const [id, setId] = useState('')
   const [form, setForm] = useState(initialForm)
+  const [usersPerPage] = useState(4)
+  const [page, setPage] = useState(0)
 
   useEffect(() => {
     imageService
@@ -29,6 +33,7 @@ const Dashboard = () => {
       })
   },[])
 
+  const updatedDataFromPaginate = data => setDataFromPaginate(data)
   const handleUpdate = (event) => {
     event.preventDefault()
 
@@ -107,6 +112,9 @@ const Dashboard = () => {
         </form>
       </Modal>
       <div className='dashboard'>
+        { data ? (
+          <Paginate data={data} itemsPerPage={usersPerPage} setData={updatedDataFromPaginate} setPage={setPage} />
+        ) : null}
         <table className='table'>
           <thead>
             <tr>
@@ -119,18 +127,38 @@ const Dashboard = () => {
               <th>Accion</th>
             </tr>
           </thead>
-          { data.map( (info, index) => (
-            <TablaItem
-              key={info.id}
-              id={index+1}
-              item={info.item}
-              category={info.category}
-              description={info.description}
-              price={info.price}
-              state={info.state}
-              handleFoto={() => openModal(info, index)}
-              deleteItem= {() => deleteItem(info.id, info.item)} />
-          ))}
+          { dataFromPaginate
+            ? dataFromPaginate.map( (info, index) => (
+              <TablaItem
+                key={info.id}
+                id={page * usersPerPage + index - usersPerPage + 1}
+                item={info.item}
+                category={info.category}
+                description={info.description}
+                price={info.price}
+                state={info.state}
+                handleFoto={() => openModal(info, index)}
+                deleteItem= {() => deleteItem(info.id, info.item)} />
+            ))
+            : data
+              ? data.map( (info, index) => {
+                if (index < usersPerPage){
+                  return(
+                    <TablaItem
+                      key={info.id}
+                      id={index+1}
+                      item={info.item}
+                      category={info.category}
+                      description={info.description}
+                      price={info.price}
+                      state={info.state}
+                      handleFoto={() => openModal(info, index)}
+                      deleteItem= {() => deleteItem(info.id, info.item)} />
+                  )
+                }
+              })
+              : <tbody><tr><td colSpan={8}>Sin datos</td></tr></tbody>
+          }
         </table>
       </div>
     </>

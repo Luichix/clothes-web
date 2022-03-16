@@ -3,6 +3,7 @@
 @import url('Login.css');
 @import url('Modal.css');
 @import url('Upload.css');
+@import url('paginate.css');
 
 body {
   margin: 0;
