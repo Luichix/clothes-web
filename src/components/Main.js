@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Item from './Item'
 import imageService from '../services/image'
 import Modal from './Modal'
-import Footer from '../components/Footer'
+import Footer from './Footer'
+import Paginate from './Paginate'
 
 function ModalMain(props) {
   return (
@@ -21,13 +22,19 @@ function ModalMain(props) {
 
 function Main() {
   const [store, setStore] = useState([])
+  const [storeFromPaginate, setStoreFromPaginate] = useState(null)
   const [imageModal, setimageModal] = useState({})
+  const [itemsPerPage] = useState(2)
+  const [page, setPage] = useState(1)
+
 
   useEffect(() => {
     imageService.getAll().then((initialShop) => {
       setStore(initialShop)
     })
   }, [])
+
+  const updatedStoreFromPaginate = store => setStoreFromPaginate(store)
 
   const openModal = (data) => {
     document.getElementById('myModal').style.display = 'flex'
@@ -43,22 +50,38 @@ function Main() {
         <h2 className="title-section">Todo lo que tenemos...</h2>
         <p className="message-section">
           Estas buscando alguna prenda... Bueno, has venido al lugar correcto,
-          boo. Mira todo lo que tenemos y escoge lo que gustes...{' '}
+          boo. Mira todo lo que tenemos y escoge lo que gustes... Estamos en la pagina n° {page}
         </p>
         <ModalMain imageModal={imageModal}></ModalMain>
+        { store ? (
+          <Paginate data={store} itemsPerPage={itemsPerPage} setData={updatedStoreFromPaginate} setPage={setPage} />
+        ) : null}
         <section className="gallery-grid">
-          {store.map((shop) => (
-            <Item
-              key={shop.id}
-              item={shop.item}
-              description={shop.description}
-              category={shop.category}
-              state={shop.state}
-              precio={shop.price.toFixed(2)}
-              urlImg={shop.imageUrl}
-              click={() => openModal(shop)}
-            />
-          ))}
+          {storeFromPaginate
+            ?storeFromPaginate.map((shop) => (
+              <Item
+                key={shop.id}
+                item={shop.item}
+                description={shop.description}
+                category={shop.category}
+                state={shop.state}
+                precio={shop.price.toFixed(2)}
+                urlImg={shop.imageUrl}
+                click={() => openModal(shop)}
+              />
+            )) :
+            store.map((shop) => (
+              <Item
+                key={shop.id}
+                item={shop.item}
+                description={shop.description}
+                category={shop.category}
+                state={shop.state}
+                precio={shop.price.toFixed(2)}
+                urlImg={shop.imageUrl}
+                click={() => openModal(shop)}
+              />
+            )) }
         </section>
       </main>
       <Footer />

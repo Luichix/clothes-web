@@ -7,9 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Paginate = ({ data, itemsPerPage, setData, setPage } ) => {
   const [pageData, setPageData] = useState(null)
   const [totalPages, setTotalPages] = useState(null)
-  const [dataStartingIndex, setDataStartingIndex] = useState(null)
   const [currentClickedNumber, setCurrentClickedNumber] = useState(1)
-
+  const [activeButton, setActiveButton] = useState(1)
 
   const determineNumberOfPages = () => {
     let paginateDataObject = {}
@@ -27,7 +26,6 @@ const Paginate = ({ data, itemsPerPage, setData, setPage } ) => {
     })
 
     setTotalPages(chunckArray.length)
-    setDataStartingIndex(itemsPerPage)
     setPageData(paginateDataObject)
   }
 
@@ -37,24 +35,27 @@ const Paginate = ({ data, itemsPerPage, setData, setPage } ) => {
 
   const moveToLastPage = () => {
     setCurrentClickedNumber(totalPages)
+    setActiveButton(totalPages)
   }
 
   const moveToFirstPage = () => {
     setCurrentClickedNumber(1)
+    setActiveButton(1)
   }
 
   const moveOnePageForward = () => {
-    if(dataStartingIndex){
-      setDataStartingIndex(null)
-      setCurrentClickedNumber(2)
-    } else {
-      setCurrentClickedNumber(currentClickedNumber +1 > totalPages
-        ? totalPages : currentClickedNumber + 1)
-    }
+
+    setCurrentClickedNumber(currentClickedNumber +1 > totalPages
+      ? totalPages : currentClickedNumber + 1)
+    setActiveButton( currentClickedNumber + 1 > totalPages
+      ? totalPages : currentClickedNumber + 1)
+
   }
 
   const moveOnePageBackward = () => {
     setCurrentClickedNumber( currentClickedNumber - 1 < 1
+      ? 1 : currentClickedNumber - 1)
+    setActiveButton( currentClickedNumber - 1 < 1
       ? 1 : currentClickedNumber - 1)
   }
 
@@ -69,10 +70,30 @@ const Paginate = ({ data, itemsPerPage, setData, setPage } ) => {
     }
   }, [currentClickedNumber])
 
+  const activateButton = (e) => {
+    setActiveButton(parseInt(e.target.value))
+  }
+
   const pageNumberRender = () => {
     let pages = []
-    for (let i = 1; i < totalPages + 1; i++ ){
-      pages.push(<button className='item__paginate' key={i}>{i}</button>)
+    let i, cont
+    if(currentClickedNumber - 1 === 0){
+      i = currentClickedNumber
+      cont = 2
+    } else {
+      i = currentClickedNumber - 1
+      if(currentClickedNumber === totalPages){
+        cont = currentClickedNumber
+      } else{
+        cont = currentClickedNumber + 1
+      }
+    }
+    for (i; i <= cont; i++ ){
+      pages.push(<button
+        className={activeButton === i ? 'item__paginate activePage' : 'item__paginate'}
+        onClick={activateButton}
+        value={i}
+        key={i}>{i}</button>)
     }
     return pages
   }

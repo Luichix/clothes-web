@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [successMsg, setSuccessMsg] = useState('')
   const [id, setId] = useState('')
   const [form, setForm] = useState(initialForm)
-  const [usersPerPage] = useState(4)
+  const [itemsPerPage] = useState(2)
   const [page, setPage] = useState(0)
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const Dashboard = () => {
       </Modal>
       <div className='dashboard'>
         { data ? (
-          <Paginate data={data} itemsPerPage={usersPerPage} setData={updatedDataFromPaginate} setPage={setPage} />
+          <Paginate data={data} itemsPerPage={itemsPerPage} setData={updatedDataFromPaginate} setPage={setPage} />
         ) : null}
         <table className='table'>
           <thead>
@@ -131,7 +131,7 @@ const Dashboard = () => {
             ? dataFromPaginate.map( (info, index) => (
               <TablaItem
                 key={info.id}
-                id={page * usersPerPage + index - usersPerPage + 1}
+                id={page * itemsPerPage + index - itemsPerPage + 1}
                 item={info.item}
                 category={info.category}
                 description={info.description}
@@ -142,7 +142,7 @@ const Dashboard = () => {
             ))
             : data
               ? data.map( (info, index) => {
-                if (index < usersPerPage){
+                if (index < itemsPerPage){
                   return(
                     <TablaItem
                       key={info.id}

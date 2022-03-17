@@ -13,7 +13,7 @@
   font-weight: 700;
 }
 
-.buttonActive__paginate, .item__paginate:hover {
+.activePage, .item__paginate:hover {
   background-color: #999;
 }
 
