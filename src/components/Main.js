@@ -70,18 +70,20 @@ function Main() {
                 click={() => openModal(shop)}
               />
             )) :
-            store.map((shop) => (
-              <Item
-                key={shop.id}
-                item={shop.item}
-                description={shop.description}
-                category={shop.category}
-                state={shop.state}
-                precio={shop.price.toFixed(2)}
-                urlImg={shop.imageUrl}
-                click={() => openModal(shop)}
-              />
-            )) }
+            store.map((shop, index) => {
+              if (index < itemsPerPage){
+                return(
+                  <Item
+                    key={shop.id}
+                    item={shop.item}
+                    description={shop.description}
+                    category={shop.category}
+                    state={shop.state}
+                    precio={shop.price.toFixed(2)}
+                    urlImg={shop.imageUrl}
+                    click={() => openModal(shop)}
+                  />
+                )}}) }
         </section>
       </main>
       <Footer />
