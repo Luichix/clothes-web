@@ -47,7 +47,10 @@ const Dashboard = () => {
     }
     imageService
       .updated(form.id, imageObject)
-      .then(dataUpdate => setData(data.map(note => note.id === dataUpdate.id ? dataUpdate: note )))
+      .then(dataUpdate => {
+        setData(data.map(note => note.id === dataUpdate.id ? dataUpdate: note ))
+        setDataFromPaginate(dataFromPaginate.map(note => note.id === dataUpdate.id ? dataUpdate: note ))
+      })
     document.getElementById('myModal').style.display = 'none'
     setSuccessMsg('Image uploaded successfully')
   }
