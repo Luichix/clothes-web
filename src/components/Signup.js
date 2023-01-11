@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginService from '../services/login';
+import signupService from '../services/signup';
 import Alert from './Alert';
 import imageService from '../services/image';
 import UserContext from '../context/AuthContext';
 
-function Login() {
+function Signup() {
   let navigate = useNavigate();
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
@@ -19,12 +20,13 @@ function Login() {
       imageService.setToken(user.token);
     }
   }, []);
-  const handleLogin = async (event) => {
+  const handlesignup = async (event) => {
     event.preventDefault();
 
     try {
-      const user = await loginService.login({
+      const user = await signupService.signup({
         username,
+        name,
         password,
       });
 
@@ -47,10 +49,18 @@ function Login() {
   return (
     <>
       <Alert msg={errMsg} type="danger" />
-      <div className="login">
-        <div className="login_container">
+      <div className="signup">
+        <div className="signup_container">
           <h1>Ingreso</h1>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handlesignup}>
+            <h5>Nombre</h5>
+            <input
+              type="text"
+              value={name}
+              name="Name"
+              onChange={({ target }) => setName(target.value)}
+              autoComplete="off"
+            />
             <h5>Usuario</h5>
             <input
               type="text"
@@ -68,8 +78,8 @@ function Login() {
               onChange={({ target }) => setPassword(target.value)}
             />
 
-            <button type="submit" className="login_signInButton">
-              Login
+            <button type="submit" className="signup_signInButton">
+              Signup
             </button>
           </form>
         </div>
@@ -78,4 +88,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
